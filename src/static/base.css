@@ -1,0 +1,13 @@
+/* for the base.html*/
+
+
+
+/*TODO : add the hovering transition duration when hovering the links of the nav bar
+#navbarText li > a{
+    transition: transform 5983ms;
+} */
+
+#navbarText li > a:hover{
+    background-color: rgb(86, 86, 139);
+}
+

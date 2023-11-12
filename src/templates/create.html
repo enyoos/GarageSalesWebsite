@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Create Account{% endblock %}
+
+{% block extra %} <link rel="stylesheet" href="./static/login.css"> {%endblock%}
+
+{% block content %}
+<div class="contentdivform">
+    <form class="form-signin">
+        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+
+        <!-- that might be buggy, with the inputUsername stuff -->
+        <label for="inputUsername" class="sr-only">Username</label>
+        <input type="text" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
+
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" name="p1" id="inputPassword" class="form-control" placeholder="Password" required>
+
+        <label for="inputPassword" class="sr-only">Repeat password</label>
+        <input type="password" id="inputPasswordR" class="form-control" placeholder="Password" required name="p2">
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Create Account</button>
+    </form>
+</div>
+{%endblock%}
+
+{%block footer%}
+{%endblock%}

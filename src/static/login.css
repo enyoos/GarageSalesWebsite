@@ -1,0 +1,39 @@
+.contentdivform
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* width: 65%; */
+
+    min-width: 500px;
+    max-width: 700px;
+    
+    min-height: 400px;
+    max-height: 550px;
+    /* height: 50%; */
+    margin: 0 auto;
+
+    /* I am not a designer, so I am using random things */
+    border: 1px solid;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 5px 10px rgb(127, 226, 127);
+    border-color: rgb(180, 173, 173);
+}
+
+.form-signin input {
+    display: block;
+    margin-bottom: 1em;
+}
+
+.form-signin label {
+    float: left;
+    margin-right: 0.5em;
+} 
+
+.form-signin button{
+    border: none;
+    background-color: rgb(127, 226, 127);
+    transition-duration: 1000ms;
+}
