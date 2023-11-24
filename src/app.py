@@ -33,9 +33,22 @@ def login():
     elif request.method == 'POST':
         c_hash = request.form.get('captcha-hash')
         c_text = request.form.get('captcha-text')
+
+        # ideally we don't want to prompt the user to
+        # refill every entry of the form, once they fail the captcha
+        # this is food for thought
+
+        email = request.form['inputEmail']
+        password = request.form['inputPassword']
+        print ( email, password )
+
         if SIMPLE_CAPTCHA.verify(c_text, c_hash):
+            # before that we need
+            # to get the info from the forms
+
             return 'success'
         else:
+
             return 'failed captcha'
 
 
@@ -48,8 +61,17 @@ def create():
         
     # this is actually interesting ( it also works for POST )
     elif request.method == 'POST':
+
         c_hash = request.form.get('captcha-hash')
         c_text = request.form.get('captcha-text')
+        
+        email = request.form['inputEmail']
+        name  = request.form['inputUsername']
+        password = request.form['p1']
+        rpassword= request.form['p2']
+
+        print( f"name {name}, email {email} pass {password}")
+
         if SIMPLE_CAPTCHA.verify(c_text, c_hash):
             return 'success'
         else:
