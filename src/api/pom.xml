@@ -53,6 +53,14 @@
 					</image>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<configuration>
+					<mainClass>com.api.grg.envy.ApiApplication</mainClass>
+				</configuration>
+				<version>3.1.0</version>
+			</plugin>
 		</plugins>
 	</build>
 

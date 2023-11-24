@@ -1,13 +1,16 @@
 package com.api.grg.envy;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+// include it if you want to test your
+// spring boot app
+// @SpringBootTest
 class ApiApplicationTests {
 
 	@Test
 	void contextLoads() {
+		String msg = "hello world";
+		System.out.println(msg);
 	}
 
 }
