@@ -1,31 +1,29 @@
 {% extends "base.html" %}
 
 {% block title %}Login{% endblock %}
+{%block extraboots%}{%endblock%}
 
+{%block about%}{%endblock%}
 {% block extra %} <link rel="stylesheet" href="../static/css/login.css"> {%endblock%}
 
 {% block content %}
 <div class="contentdivform">
-    <form class="form-signin">
+    <form class="form-signin" autocomplete="off" method="post">
         <!-- the image, might add one sometime -->
         <!-- <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72"> -->
         <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
         <label for="inputEmail" class="sr-only">Email address</label>
         <input type="email" id="inputEmail" class="form-control" autocomplete="off" placeholder="Email address" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <input type="password" id="inputPassword" autocomplete="off" class="form-control" placeholder="Password" required>
         <div class="checkbox mb-3">
 
-        <!--TODO : add a captcha with captcha-flask to fill in the "empty space" -->
-        
-        <!-- TODO : implementing the "remember me" ( probalby with cookies settigns ) -->
-        <!-- <label>
-            <input type="checkbox" value="remember-me"> Remember me
-        </label> -->
-        </div>
+       </div>
+
+        <hr>
+        {{ captcha_html(captcha)| safe }}
+
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-        <!-- some  sort of cpy right ? ? ? -->
-        <!-- <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p> -->
     </form>
 </div>
 {% endblock %}
