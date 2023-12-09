@@ -4,12 +4,20 @@ import java.time.LocalDate;
 
 import com.api.grg.envy.vendor.Vendor;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 
 
 public class Post {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(nullable = false)
     private Long id;
+    
     private Vendor vendor;
     private LocalDate datepub;    
     private String title;

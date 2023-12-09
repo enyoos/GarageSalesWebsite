@@ -2,12 +2,25 @@ package com.api.grg.envy.vendor;
 
 import java.util.ArrayList;
 import com.api.grg.envy.post.Post;
+
+import io.micrometer.common.lang.Nullable;
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.SecondaryTable;
+import jakarta.persistence.SecondaryTables;
+import jakarta.persistence.Table;
 
+@Entity
+@Table(name = "vendors_table")
+@SecondaryTables({
+    @SecondaryTable(name="posts_table")
+})
 public class Vendor {
 
     @Id
@@ -17,11 +30,18 @@ public class Vendor {
 
     @Column(unique = true, length = 200, nullable = false)
     private String name;
+    @Column(unique = true, length = 200, nullable = false)
     private String email;
+    @Column(unique = true, length = 200, nullable = false)
     private String password;
 
     @Lob
+    @Column(name = "photo", length = 20971520, columnDefinition="BLOB")
+    @Nullable
     private Byte[] profil;    
+
+    @Nullable
+    @Column(table="posts_table")
     private ArrayList<Post> posts;
 
 
