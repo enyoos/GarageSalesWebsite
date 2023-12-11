@@ -4,13 +4,20 @@ import java.time.LocalDate;
 
 import com.api.grg.envy.vendor.Vendor;
 
+import io.micrometer.common.lang.Nullable;
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 
+@Entity
+@Table( name = "POST")
 public class Post {
 
     @Id
@@ -18,13 +25,24 @@ public class Post {
     @Column(nullable = false)
     private Long id;
     
+    @ManyToOne
+    @JoinColumn(name="vendor_id", nullable=false)
     private Vendor vendor;
+
+    @Column(columnDefinition = "DATE")
     private LocalDate datepub;    
+
+    @Column( name = "title")
     private String title;
 
     @Lob
+    @Column(name = "description", nullable = false)
     private String description;
+
+
+    @Nullable
     @Lob
+    @Column( name = "image")
     private Byte[] image;
 
     // make the 2 constructors

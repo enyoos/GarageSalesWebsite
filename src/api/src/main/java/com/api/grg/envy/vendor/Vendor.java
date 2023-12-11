@@ -1,48 +1,46 @@
 package com.api.grg.envy.vendor;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.api.grg.envy.post.Post;
 
 import io.micrometer.common.lang.Nullable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.SecondaryTable;
-import jakarta.persistence.SecondaryTables;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "vendors_table")
-@SecondaryTables({
-    @SecondaryTable(name="posts_table")
-})
+@Table(name = "VENDOR")
 public class Vendor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(nullable = false)
+    @Column(name = "id",nullable = false)
     private Long id;
 
-    @Column(unique = true, length = 200, nullable = false)
+    @Column( name = "name", nullable = false)
     private String name;
-    @Column(unique = true, length = 200, nullable = false)
+    @Column( name = "email", nullable =  false)
     private String email;
-    @Column(unique = true, length = 200, nullable = false)
+    @Column( name = "password", nullable = false)
     private String password;
 
+    @Nullable
     @Lob
     @Column(name = "photo", length = 20971520, columnDefinition="BLOB")
-    @Nullable
     private Byte[] profil;    
 
     @Nullable
-    @Column(table="posts_table")
-    private ArrayList<Post> posts;
+    @OneToMany(mappedBy="vendor")
+    private List<Post> posts;
 
 
     public Vendor() {};
@@ -77,7 +75,30 @@ public class Vendor {
     public String getPassword () { return this.password;}
     public String getEmail ( ) { return this.email ;}
     public Byte[] getProfil( ) { return this.profil;}
-    public ArrayList<Post> getPosts() { return this.posts ;}
+    public List<Post> getPosts() { return this.posts ;}
 
-    // do we really need setters for now ?
+    public void setId ( Long id) {this.id = id ;}
+    public void setName ( String n ) { this.name = n;}
+    public void setPassword ( String p ) { this.password = p ;}
+    public void setEmail ( String e) { this.email = e;}
+    public void setProfil( Byte[] p ) { this.profil = p;}
+    public void setPosts( List<Post> p ) { this.posts = p ;}
+
+    @Override
+    public String toString ( )
+    {
+
+        Map<String, Object> map = new HashMap<>();
+        map.put ( "id", this.id );
+        map.put ( "name", this.name );
+        map.put ( "password", this.password );
+        map.put ( "email", this.email );
+
+        String out = map.toString();
+        map = null;
+
+        return out;
+    }
+
+
 }
