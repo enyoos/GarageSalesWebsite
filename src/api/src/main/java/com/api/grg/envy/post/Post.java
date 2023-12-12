@@ -45,6 +45,9 @@ public class Post {
     @Column( name = "image")
     private Byte[] image;
 
+    public Post(){}
+
+
     // make the 2 constructors
     public Post ( Long id, LocalDate datepub, String ttl, String d, Byte[] img )
     {

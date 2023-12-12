@@ -12,4 +12,9 @@ public final class Utils {
         return out;
     }
 
+    // public static boolean isCredentialsTaken( String name, String email )
+    // {
+    //     if ( )
+    // }
+
 }

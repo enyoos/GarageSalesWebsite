@@ -43,7 +43,7 @@ public class Vendor {
     private List<Post> posts;
 
 
-    public Vendor() {};
+    public Vendor() {}
 
     // with all the entries
     // TODO

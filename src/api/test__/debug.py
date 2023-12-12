@@ -4,18 +4,38 @@ import json
 
 URL = "http://localhost:8080/api/vendors/" # DO NOT FORGET THE LEADING SLASH HERE.
 
+
 # with the full things 
+def get ( ):
+    content = requests.get ( URL ).content
+    print ( content )
+
+def post ( dict_ ):
+    content = requests.post( URL, json = dict_ ).content
+    print( content )
+
+def delete ( id ):
+    URL_DELETE = URL + f"private/delete/{id}"
+    content = requests.post( URL_DELETE ).content
+    print ( content )
+
+def update ( dict_ ) :
+    content = requests.post ( URL, json = dict_ ).content
+    print( content )
+
 dict_ = {
-    "id" : 4398,
-    "name" : "ilyas",
-    "email" : "some@envyoos.xyz",
-    "password" : "43843",
+    "id" : 1,
+    "name" : "name",
+    "email" : "2277786@crosemont.qc.ca",
+    "password" : "438948",
 }
 
+dict__ = {
+    "id" : 1,
+    "name" : "name",
+    "email" : "2277786@crosemont.qc.ca",
+    "password" : "438948",
+}
 
-# content = requests.get( URL ).content
-
-str_ = json.dumps ( dict_ )
-content = requests.post( URL , data = dict_ ).content
-print( content )
-
+post ( dict_ )
+get ()
