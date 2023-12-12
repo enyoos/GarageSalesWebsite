@@ -7,21 +7,25 @@ URL = "http://localhost:8080/api/vendors/" # DO NOT FORGET THE LEADING SLASH HER
 
 # with the full things 
 def get ( ):
-    content = requests.get ( URL ).content
-    print ( content )
+    content = requests.get ( URL )
+    print ( content.status_code )
+    print ( content.content)
 
 def post ( dict_ ):
-    content = requests.post( URL, json = dict_ ).content
-    print( content )
+    content = requests.post( URL, json = dict_ )
+    print ( content.status_code )
+    print ( content.content)
 
 def delete ( id ):
     URL_DELETE = URL + f"private/delete/{id}"
-    content = requests.post( URL_DELETE ).content
-    print ( content )
+    content = requests.post( URL_DELETE )
+    print ( content.status_code )
+    print( content.content )
 
 def update ( dict_ ) :
-    content = requests.post ( URL, json = dict_ ).content
-    print( content )
+    content = requests.post ( URL, json = dict_ )
+    print ( content.status_code)
+    print( content.content )
 
 dict_ = {
     "id" : 1,

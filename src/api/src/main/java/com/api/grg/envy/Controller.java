@@ -3,10 +3,8 @@ package com.api.grg.envy;
 import java.util.List;
 import java.util.Optional;
 
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -67,8 +65,8 @@ public class Controller {
         else if ( nameT ) return new ResponseEntity<>(String.format ( "The name %s is taken", name), HttpStatus.CONFLICT);
         else if ( emailT ) return new ResponseEntity<>(String.format ( "The email %s is taken", email), HttpStatus.CONFLICT);
         else {
-            boolean result = this.service.saveVendor(v);
-            return result ? new ResponseEntity<>(String.format("Saved the vendor : %s", v), HttpStatus.INTERNAL_SERVER_ERROR ) : new ResponseEntity<>( String.format ( "failed to save the vendor : %s", v.toString()), HttpStatus.ACCEPTED);
+            this.service.saveVendor(v);
+            return new ResponseEntity<>(String.format("Saved the vendor : %s", v), HttpStatus.OK );
         }
     }
 
@@ -89,7 +87,7 @@ public class Controller {
     {
         boolean result = this.service.updateVendor(newVendor);
         // boolean result = this.service.saveVendor(newVendor);
-        return result ? new ResponseEntity<>(String.format ("Saving the vendor : %s", newVendor), HttpStatus.INTERNAL_SERVER_ERROR ) : new ResponseEntity<>( String.format ( "failed the vendor : %s", newVendor.toString()), HttpStatus.ACCEPTED);
+        return result ? new ResponseEntity<>(String.format ("Saving the vendor : %s", newVendor), HttpStatus.OK) : new ResponseEntity<>( String.format ( "failed the vendor : %s", newVendor.toString()), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     // GET, WILL DELETE ALL OF YOUR DATA ( THINK OF CRAWLERS )

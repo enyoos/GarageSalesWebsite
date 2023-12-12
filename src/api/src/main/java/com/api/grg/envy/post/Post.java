@@ -17,32 +17,32 @@ import jakarta.persistence.Table;
 
 
 @Entity
-@Table( name = "POST")
+@Table( name = "POSTS")
 public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(nullable = false)
+    @Column(name = "post_id", nullable = false)
     private Long id;
     
     @ManyToOne
     @JoinColumn(name="vendor_id", nullable=false)
     private Vendor vendor;
 
-    @Column(columnDefinition = "DATE")
+    @Column( name = "post_date", columnDefinition = "DATE")
     private LocalDate datepub;    
 
-    @Column( name = "title")
+    @Column( name = "post_title")
     private String title;
 
     @Lob
-    @Column(name = "description", nullable = false)
+    @Column(name = "post_description")
     private String description;
 
 
     @Nullable
     @Lob
-    @Column( name = "image")
+    @Column( name = "post_image")
     private Byte[] image;
 
     public Post(){}

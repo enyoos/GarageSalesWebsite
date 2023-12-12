@@ -8,6 +8,7 @@ import java.util.Map;
 import com.api.grg.envy.post.Post;
 
 import io.micrometer.common.lang.Nullable;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,28 +19,28 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "VENDOR")
+@Table(name = "VENDORS")
 public class Vendor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id",nullable = false)
+    @Column(name = "vendor_id",nullable = false)
     private Long id;
 
-    @Column( name = "name", nullable = false)
+    @Column( name = "vendor_name", nullable = false)
     private String name;
-    @Column( name = "email", nullable =  false)
+    @Column( name = "vendor_email", nullable =  false)
     private String email;
-    @Column( name = "password", nullable = false)
+    @Column( name = "vendor_password", nullable = false)
     private String password;
 
     @Nullable
     @Lob
-    @Column(name = "photo", length = 20971520, columnDefinition="BLOB")
+    @Column(name = "vendor_photo", length = 20971520, columnDefinition="BLOB")
     private Byte[] profil;    
 
     @Nullable
-    @OneToMany(mappedBy="vendor")
+    @OneToMany(mappedBy="vendor", cascade = CascadeType.ALL)
     private List<Post> posts;
 
 

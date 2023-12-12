@@ -21,9 +21,8 @@ public class Service {
     public Optional<Vendor> getVendorByName ( String name ){ return this.repo.findByName(name);}
     public Optional<Vendor> getVendorByEmail ( String email ) { return this.repo.findByEmail(email);}
     
-    public boolean saveVendor ( Vendor v ) {
+    public void saveVendor ( Vendor v ) {
         Vendor tt = this.repo.save(v); 
-        return tt != null;
     }
 
     public boolean updateVendor( Vendor v )
