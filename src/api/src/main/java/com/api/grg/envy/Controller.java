@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.api.grg.envy.vendor.Vendor;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/vendors")
 public class Controller {
@@ -35,14 +37,25 @@ public class Controller {
 
         return out;
     }
-    
+
+    @GetMapping("/{name}")
+    public ResponseEntity<Vendor> getNamePathVar ( @PathVariable( value = "name" ) String name)
+    {
+        ResponseEntity<Vendor> out ;
+        Optional<Vendor> opt = this.service.getVendorByName(name);
+        if ( opt.isPresent() ) { out = new ResponseEntity<>( null, HttpStatus.NOT_FOUND); }
+        else { out = new ResponseEntity<>(opt.get(), HttpStatus.FOUND); }
+        return out;
+    }
+
+
     @GetMapping("/{id}")
     public ResponseEntity<Vendor> GetIdPathVar(@PathVariable(value = "id") Long id) {
 
         ResponseEntity< Vendor > out;
         Optional<Vendor> opt = this.service.getVendorById(id);
-        if ( opt.isPresent() ) { out = new ResponseEntity<>( null, HttpStatus.NOT_FOUND); }
-        else { out = new ResponseEntity<>(opt.get(), HttpStatus.FOUND); }
+        if ( opt.isPresent() ) { out = new ResponseEntity<>( opt.get(), HttpStatus.FOUND); }
+        else { out = new ResponseEntity<>(null, HttpStatus.FOUND); }
         return out;
 
     }
