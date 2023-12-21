@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import axios from 'axios';
 import Input from "./Input";
+import ErrorDialog from "./ErrorDialog";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { faEye } from '@fortawesome/fontawesome-free-solid'
 
@@ -23,11 +24,8 @@ export default function Create( {navigate} )
     const [email, setEmail] = useState("");
     const [rPassw, setRPassw] = useState("");
 
-    useEffect( () => console.log ( "the value of the show attr : " + show ), [show]);
-
     function handleSubmit( event )
     {
-        // preventing the refresh action
         event.preventDefault();
 
         //   console.log(event.target.username.value)          // or directly
@@ -65,20 +63,26 @@ export default function Create( {navigate} )
                 sessionStorage.setItem( "username", username);
                 sessionStorage.setItem( "userid", resp.id );
                
+                // we should only redirect if the status code is OK
+
                 // redirect to the user page
                 // use interpolating strings
                 navigate( "/User" );
 
-            }).catch( err => {
-                setErr( err );
+            }).catch( error => {
+                // is that message really helpful ?
+                setErr( error.message );
             })
         }
     }
 
     return (
         <>
-        {/* <span>{err}</span> */}
+        <span>{err}</span>
             <form autoComplete="off" onSubmit={(e) => handleSubmit( e )}>
+
+                {err === "" ? "" : <ErrorDialog err={err}/>}
+
                 <label> Enter the username </label>
                 {/* <input type="text" name="username" required /> */}
                 <Input value={username} setValue={setUsername} />

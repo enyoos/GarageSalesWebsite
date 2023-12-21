@@ -1,0 +1,1 @@
+export default function OK( statusCode ) { return statusCode > 199 && statusCode < 300; }
