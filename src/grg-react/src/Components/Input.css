@@ -1,0 +1,18 @@
+/* Let's freaky with the color of the input */
+.input{
+    /* got it from : https://welearncode.com/rainbow-text/ */
+    background: linear-gradient(to right,
+     #f50400,
+       #571dbc,
+        #1273c4,
+         #26c6da,
+            #ff5722);
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.input::placeholder
+{
+    opacity: .4;
+}

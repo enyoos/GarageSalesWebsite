@@ -1,0 +1,14 @@
+.button
+{
+    font-style: italic;
+    color: white;
+    background-color: rgb(128, 176, 128);
+    transition-duration: 2s;
+    border-radius: 4px;
+}
+
+
+.button:hover
+{
+    background-color: rgb(61, 211, 61);
+}
