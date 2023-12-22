@@ -1,3 +1,5 @@
+import ButtonNavigate from "./ButtonNavigate";
+
 export default function User( {navigate} )
 {
     const username = sessionStorage.getItem("username");
@@ -6,9 +8,13 @@ export default function User( {navigate} )
     if ( username != undefined )
     {
         return (
-            <h1>
-                Welcome {username}, &#128075;
-            </h1>
+            <>
+                <h1>
+                    Welcome {username}, &#128075;
+                </h1>
+                <ButtonNavigate content={"Check some offers"} navigate={navigate}/>
+                <ButtonNavigate content={"Post an Offer"} navigate={navigate}/>
+            </>
         ) 
     }
     // you need to login
