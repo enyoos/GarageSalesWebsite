@@ -11,3 +11,5 @@ export function saveCookies ( username, id )
     sessionStorage.setItem( "username", username);
     sessionStorage.setItem( "userid", id );
 }
+
+export function spitDateString ( date ) { return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`; }

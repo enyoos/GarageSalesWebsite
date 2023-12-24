@@ -1,6 +1,6 @@
 import "./Input.css";
 
-export default function Input ( {value, setValue, placeHolder="", type="text", isRequired = true} )
+export default function Input ( {value, setValue, placeHolder="", type="text", isRequired = true, title=""} )
 {
     return (
         <input 
@@ -8,7 +8,7 @@ export default function Input ( {value, setValue, placeHolder="", type="text", i
             type={type} 
             autoComplete="off" 
             placeholder={placeHolder} 
-            onChange={ ( e ) => setValue ( e.target.value ) } 
+            onChange={ type==="text" ? ( e ) => setValue ( e.target.value ) : ( e ) => setValue ( e ) } 
             required={isRequired}
         />
     )

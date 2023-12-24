@@ -1,6 +1,7 @@
-.span
+.span-err
 {
     color: red;
+    background-color: rgb(168, 127, 127);
     text-decoration: underline;
-    background-color: rgb(178, 99, 99);
+    border-radius: 4px;
 }

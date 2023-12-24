@@ -1,23 +1,19 @@
 import { useEffect, useState } from "react"
 import axios from 'axios';
 import Input from "./Input";
-import ErrorDialog from "./ErrorDialog";
+import DialogBox from "./DialogBox";
 
 // this import can be problematic
 import "./Button.css"
 import ButtonShow from "./ButtonShow";
 import { printR, saveCookies } from "../Utils";
 
-const POST_API_URL = "http://localhost:8080/api/vendors/" 
+const POST_API_URL = "http://localhost:8079/api/vendors/" 
 
 export default function Create( {navigate} )
 {
-    const [err, setErr] = useState("");
-
-    // for showing the password or na
+    const [ statusRequest, setStatusRequest ] = useState({});
     const [show, setShow] = useState(false);
-
-    // eww this is gross
     const [username, setUsername] = useState("");
     const [passw, setPassw] = useState("");
     const [email, setEmail] = useState("");
@@ -36,7 +32,7 @@ export default function Create( {navigate} )
 
         // check if the passw are matching
         if ( passw !== rPassw) {
-            setErr("The passwords are not matching");
+            setStatusRequest({content: "The passwords are not matching", isErr: true });
         }
         // make post request to the api
         else 
@@ -62,18 +58,15 @@ export default function Create( {navigate} )
 
             }).catch( error => {
                 // is that message really helpful ?
-                printR( error.response );
-                setErr( error.response.data );
+                setStatusRequest( { content : error.message, isErr : true } );
             })
         }
     }
 
     return (
         <>
-        <span>{err}</span>
             <form autoComplete="off" onSubmit={(e) => handleSubmit( e )}>
-
-                <ErrorDialog err={err}/>
+                <DialogBox isErr={statusRequest.isErr} content={statusRequest.content}/>
 
                 <label> Enter the username </label>
                 {/* <input type="text" name="username" required /> */}

@@ -2,6 +2,8 @@ package com.api.grg.envy.post;
 
 import java.time.LocalDate;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.api.grg.envy.vendor.Vendor;
 
 import io.micrometer.common.lang.Nullable;
@@ -29,6 +31,7 @@ public class Post {
     @JoinColumn(name="vendor_id", nullable=false)
     private Vendor vendor;
 
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     @Column( name = "post_date", columnDefinition = "DATE")
     private LocalDate datepub;    
 

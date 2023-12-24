@@ -1,9 +1,9 @@
 import { useState } from "react";
-import ErrorDialog from "./ErrorDialog";
 import Input from "./Input";
 import ButtonShow from "./ButtonShow";
 import axios from "axios";
 import { printR, saveCookies } from "../Utils";
+import DialogBox from "./DialogBox";
 
 const GET_API_URL = "http://localhost:8080/api/vendors/";
 
@@ -12,8 +12,8 @@ export default function Login({navigate})
 
     // the err from the axios api, is an js object
     const [show, setShow]   = useState(false);
-    const [err, setErr]     = useState("");
     const [username, setUsername] = useState("");
+    const [ statusRequest, setStatusRequest ] = useState({});
     const [passw, setPassw] = useState("");
 
     function handleSubmit( e )
@@ -23,16 +23,16 @@ export default function Login({navigate})
         axios.get(GET_API_URL + "name?name=" + username).then( resp  => {
 
             printR( resp.data );
-
             if ( resp.data.password === passw.trim() )
             {
-                saveCookies( username, resp.id );
+                console.log ( resp.data.id );
+                saveCookies( username, resp.data.id );
                 navigate( "/User" );
             }
-            else{ setErr ( "The password is incorrect" ); }
+            else{ setStatusRequest( { content: "The password is incorrect" , isErr : true } ); }
         }).catch(  err  => {
-            const msg = `The vendor with the name ${username}`;
-            setErr( msg );
+            const msg = `The vendor with the name ${username} doesn't exist ...`;
+            setStatusRequest( { content : msg, isErr: true } );
 
         } )
     }
@@ -45,7 +45,7 @@ export default function Login({navigate})
             </h1>
             <form autoComplete="off" onSubmit={(e) => handleSubmit( e )}>
 
-                <ErrorDialog err={err}/>
+                <DialogBox content={statusRequest.content} isErr={statusRequest.isErr}/>
 
                 <label> Enter the username</label>
                 {/* <input  type="text" name="email" required /> */}

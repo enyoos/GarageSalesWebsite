@@ -1,0 +1,7 @@
+.span-notif
+{
+    color : green;
+    background-color: rgb(135, 175, 135);
+    text-decoration: underline;
+    border-radius: 4px;
+}

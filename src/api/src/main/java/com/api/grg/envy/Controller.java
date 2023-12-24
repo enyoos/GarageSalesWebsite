@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.adapter.HttpWebHandlerAdapter;
 
+import com.api.grg.envy.post.Post;
 import com.api.grg.envy.vendor.Vendor;
 
-@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/vendors")
 public class Controller {
@@ -27,31 +29,34 @@ public class Controller {
     public Controller ( Service s ) { this.service = s; }
 
     @GetMapping("/")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<List<Vendor>> rootPath( )
     {
 
         ResponseEntity< List<Vendor> > out;
         List<Vendor> vendors = this.service.getVendors();
-        System.out.println(vendors);
         out = new ResponseEntity<>( vendors, HttpStatus.FOUND);
 
         return out;
     }
 
-    @GetMapping("/{name}")
-    public ResponseEntity<Vendor> getNamePathVar ( @PathVariable( value = "name" ) String name)
+    @GetMapping("/name")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public ResponseEntity<Vendor> getNamePathVar ( @RequestParam( value = "name" ) String name)
     {
+
         ResponseEntity<Vendor> out ;
         Optional<Vendor> opt = this.service.getVendorByName(name);
-        if ( opt.isPresent() ) { out = new ResponseEntity<>( null, HttpStatus.NOT_FOUND); }
-        else { out = new ResponseEntity<>(opt.get(), HttpStatus.FOUND); }
+        if ( opt.isPresent() ) { out = new ResponseEntity<>( opt.get(), HttpStatus.OK); }
+        else { out = new ResponseEntity<>(null, HttpStatus.NOT_FOUND); }
         return out;
+
     }
 
 
     @GetMapping("/{id}")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<Vendor> GetIdPathVar(@PathVariable(value = "id") Long id) {
-
         ResponseEntity< Vendor > out;
         Optional<Vendor> opt = this.service.getVendorById(id);
         if ( opt.isPresent() ) { out = new ResponseEntity<>( opt.get(), HttpStatus.FOUND); }
@@ -60,8 +65,8 @@ public class Controller {
 
     }
 
-    // @Test
     @PostMapping(value = "/", consumes = {"application/json"}) // this works very well.
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<String> newVendorPath ( @RequestBody Vendor v )
     {
         // before even adding the vendor, we need to check if the name is valid
@@ -69,8 +74,8 @@ public class Controller {
         String email = v.getEmail();
         String name = v.getName();
         
-        Optional<Vendor> tt = this.service.getVendorByEmail(email);
-        Optional<Vendor> tt2 = this.service.getVendorByName(name);
+        // Optional<Vendor> tt = this.service.getVendorByEmail(email);
+        // Optional<Vendor> tt2 = this.service.getVendorByName(name);
         
         boolean nameT = this.isNameTaken(name);
         boolean emailT = this.isEmailTaken(email);
@@ -96,6 +101,7 @@ public class Controller {
     }
 
     @PostMapping( value = "/update", consumes = {"application/json"})
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<String> updateVendorPath( @RequestBody Vendor newVendor )
     {
         boolean result = this.service.updateVendor(newVendor);
@@ -103,9 +109,29 @@ public class Controller {
         return result ? new ResponseEntity<>(String.format ("Saving the vendor : %s", newVendor), HttpStatus.OK) : new ResponseEntity<>( String.format ( "failed the vendor : %s", newVendor.toString()), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @PostMapping( value = "/{id}/posts")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public ResponseEntity<String> updatePostsEntity( @PathVariable( value = "id" ) Long id, @RequestBody Post post )
+    {
+        Optional<Vendor> opt = this.service.getVendorById(id); 
+        if (opt.isPresent())
+        {
+            Vendor vendor = opt.get();
+            // get the posts of the vendor;
+            List<Post> posts = vendor.getPosts();
+            posts.add(post);
+            this.service.updateVendor(vendor);
+
+            return new ResponseEntity<String>( "Post is added successfully! ", HttpStatus.OK );
+        }
+        else
+        { return new ResponseEntity<>("The vendor with the id : " + id + " does not exist", HttpStatus.NOT_FOUND); }
+    }
+
     // GET, WILL DELETE ALL OF YOUR DATA ( THINK OF CRAWLERS )
     // NEED, a token for that ?
     @DeleteMapping( value = "/private/delete/{id}") // htis works very well.
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<String> DeleteVendorPath ( @PathVariable(value = "id") Long id )
     {
         // get the vendor by the id
@@ -113,4 +139,6 @@ public class Controller {
         String msg = "the vendor with the id : ";
         return OK ? new ResponseEntity<>("Deleted " + msg + id, HttpStatus.OK) : new ResponseEntity<>( msg + id + ", is not found", HttpStatus.NOT_FOUND);
     }
+
+
 }

@@ -10,6 +10,12 @@ export default function ButtonNavigate ( {content, navigate} )
 
         else if ( content === "Sign up")
         { navigate ( "Sign" ); }
+        
+        else if ( content === "Check some offers" )
+        { navigate( "/User/Offers" ); }
+        
+        else if ( content === "Post an Offer")
+        { navigate( "/User/Post" ); }
     }
 
     return (
