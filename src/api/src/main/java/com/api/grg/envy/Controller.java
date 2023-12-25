@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
-import org.springframework.web.server.adapter.HttpWebHandlerAdapter;
 
 import com.api.grg.envy.post.Post;
 import com.api.grg.envy.vendor.Vendor;
@@ -109,6 +107,8 @@ public class Controller {
                 }
             }
         }
+
+        System.out.println("the valeu of the out : " + out);
 
         return new ResponseEntity<List<Post>>( out , HttpStatus.OK );
     }

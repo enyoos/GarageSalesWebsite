@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.api.grg.envy.post.Post;
 import com.api.grg.envy.vendor.Vendor;
 
+
 @org.springframework.stereotype.Service
 public class Service {
     
@@ -22,7 +23,7 @@ public class Service {
     public Optional<Vendor> getVendorByEmail ( String email ) { return this.repo.findByEmail(email);}
     
     public void saveVendor ( Vendor v ) {
-        Vendor tt = this.repo.save(v); 
+        this.repo.save(v); 
     }
 
     public boolean updateVendor( Vendor v )
@@ -33,6 +34,8 @@ public class Service {
         List<Post> posts = v.getPosts();
         Byte[] bytes = v.getProfil();
 
+        System.out.println("the name :" + name );
+
         Vendor ref = this.repo.getReferenceById(v.getId()); // the name of the method is clear
         if ( ref != null )
         {
@@ -41,6 +44,10 @@ public class Service {
             ref.setPassword(password);
             ref.setPosts(posts);
             ref.setProfil(bytes);
+
+            // save to the repo
+            this.repo.save(ref);
+
             return true;
         }
         else return false;
