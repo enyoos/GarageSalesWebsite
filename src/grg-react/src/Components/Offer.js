@@ -1,16 +1,17 @@
+import { constructSource } from "../Utils";
 import "./Offer.css";
 
 export default function Offer ( { offerObj } )
 {
 
-    const { title, datepub, description, image } = offerObj;
+    const { id, title, datepub, description, image } = offerObj;
 
     return ( 
         <>
-            <li>
+            <li key={id}>
                 title : {title}, date publication : {datepub}, 
-                descriptiond : {description} and the image : 
-
+                description : {description}, with the following image : 
+                <img alt="offer's image" src={constructSource( image )}/>
             </li>
         </>
     )

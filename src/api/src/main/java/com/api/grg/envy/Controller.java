@@ -1,6 +1,7 @@
 package com.api.grg.envy;
 
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.server.adapter.HttpWebHandlerAdapter;
 
 import com.api.grg.envy.post.Post;
@@ -63,6 +65,52 @@ public class Controller {
         else { out = new ResponseEntity<>(null, HttpStatus.FOUND); }
         return out;
 
+    }
+    
+
+    // is there to make sql query for that ?
+    // instead of getting all ? 
+    // let's get a limited number of posts
+    // or let the user specify it...
+    @GetMapping(value = "/posts")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public ResponseEntity<List<Post>> giveAllPosts( @RequestParam( value = "page") Integer page )
+    {
+        // construct a list
+        List<Post> out = new ArrayList<>() ;
+        // query all the users
+        List<Vendor> vendors = this.service.getVendors();
+        List<Post> temp = new ArrayList<>();
+
+        int page_  = page.intValue();
+        int length = vendors.size();
+
+        // iterate through all the vendors and push it
+        if (  length >= page_ )
+        {
+            for ( int i = 0 ; i < page.intValue(); i ++ )
+            {
+                temp = vendors.get(i).getPosts();
+                for ( Post p : temp ) { 
+                    if ( p != null ) out.add(p);
+                    else continue;
+                }
+            }
+        }
+        else 
+        {
+            for ( Vendor vendor : vendors )
+            {
+                temp = vendor.getPosts();
+                for ( Post p : temp )
+                {
+                    if ( p != null ) out.add(p);
+                    else continue;
+                }
+            }
+        }
+
+        return new ResponseEntity<List<Post>>( out , HttpStatus.OK );
     }
 
     @PostMapping(value = "/", consumes = {"application/json"}) // this works very well.
