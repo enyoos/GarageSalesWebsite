@@ -12,7 +12,7 @@ export function saveCookies ( username, id )
     sessionStorage.setItem( "userid", id );
 }
 
-export function spitDateString ( date ) { return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`; }
+export function spitDateString ( date ) { return `${date.getDate()}-${date.getMonth()}-${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`; }
 export function constructSource ( byteArray ) {
     // transform the byte array to base64
     return  "data:image/png;base64," + tob64( byteArray );

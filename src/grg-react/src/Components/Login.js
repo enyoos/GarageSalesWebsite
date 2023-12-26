@@ -5,7 +5,7 @@ import axios from "axios";
 import { printR, saveCookies } from "../Utils";
 import DialogBox from "./DialogBox";
 
-const GET_API_URL = "http://localhost:8080/api/vendors/";
+const GET_VENDOR_BY_NAME_URL_API = "http://localhost:8080/api/vendor/";
 
 export default function Login({navigate})
 {
@@ -20,12 +20,9 @@ export default function Login({navigate})
     {
         e.preventDefault();
 
-        axios.get(GET_API_URL + "name?name=" + username).then( resp  => {
-
-            printR( resp.data );
+        axios.get( GET_VENDOR_BY_NAME_URL_API + "name?name=" + username).then( resp  => {
             if ( resp.data.password === passw.trim() )
             {
-                console.log ( resp.data.id );
                 saveCookies( username, resp.data.id );
                 navigate( "/User" );
             }
@@ -33,7 +30,6 @@ export default function Login({navigate})
         }).catch(  err  => {
             const msg = `The vendor with the name ${username} doesn't exist ...`;
             setStatusRequest( { content : msg, isErr: true } );
-
         } )
     }
 

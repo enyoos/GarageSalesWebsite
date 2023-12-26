@@ -8,7 +8,7 @@ import "./Button.css"
 import ButtonShow from "./ButtonShow";
 import { printR, saveCookies } from "../Utils";
 
-const POST_API_URL = "http://localhost:8079/api/vendors/" 
+const POST_API_URL = "http://localhost:8080/api/vendors/" 
 
 export default function Create( {navigate} )
 {
@@ -16,7 +16,6 @@ export default function Create( {navigate} )
     const [show, setShow] = useState(false);
     const [username, setUsername] = useState("");
     const [passw, setPassw] = useState("");
-    const [email, setEmail] = useState("");
     const [rPassw, setRPassw] = useState("");
 
     function handleSubmit( event )
@@ -41,17 +40,13 @@ export default function Create( {navigate} )
             const entity = {
                 name : username,
                 password : passw,
-                email : email, 
             }
 
             axios.post( POST_API_URL , entity).then( resp => {
                 // post is succesfull ?
                 // cache the id and the name
-
                 printR( resp );
-             
                 saveCookies( username, resp.data.id );
-
                 // we don't need to check if the status code is OK
                 // since axios is handling that for us already
                 navigate( "/User" );
@@ -71,11 +66,6 @@ export default function Create( {navigate} )
                 <label> Enter the username </label>
                 {/* <input type="text" name="username" required /> */}
                 <Input value={username} setValue={setUsername} />
-                <br/>
-                <label> Enter the email </label>
-                {/* <input  type="text" name="email" required /> */}
-                <Input type="email" value={email} setValue={setEmail} />
-
                 <br/>
                 <label> Enter the password</label>
                 {/* <input type="text"  name="password" required /> */}

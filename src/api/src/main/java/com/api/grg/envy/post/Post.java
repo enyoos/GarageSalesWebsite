@@ -2,13 +2,18 @@ package com.api.grg.envy.post;
 
 import java.time.LocalDate;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.grammars.hql.HqlParser.LocalDateTimeLiteralContext;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.api.grg.envy.vendor.Vendor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import io.micrometer.common.lang.Nullable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -19,21 +24,22 @@ import jakarta.persistence.Table;
 
 
 @Entity
-@Table( name = "POSTS")
+@Table( name = "posts")
 public class Post {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "post_id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "post_generator")
     private Long id;
     
-    @ManyToOne
-    @JoinColumn(name="vendor_id", nullable=false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "vendor_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private Vendor vendor;
 
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @DateTimeFormat(pattern = "uuuu-MM-dd HH:mm")
     @Column( name = "post_date", columnDefinition = "DATE")
-    private LocalDate datepub;    
+    private LocalDate datepub;
 
     @Column( name = "post_title")
     private String title;
@@ -45,7 +51,7 @@ public class Post {
 
     @Nullable
     @Lob
-    @Column( name = "post_image")
+    @Column( name = "post_image", length = 20971520)
     private Byte[] image;
 
     public Post(){}
@@ -61,10 +67,26 @@ public class Post {
         this.image = img;
     }
 
+    public Post ( LocalDate datepub, String ttl, String d, Byte[] img )
+    {
+        this.datepub=datepub;
+        this.title = ttl;
+        this.description = d;
+        this.image = img;
+    }
+
     // make the getter and setters
     public Long getId ( ) { return this.id ;}
+    public Vendor getVendor () { return this.vendor;}
     public LocalDate getDatePub ( ) { return this.datepub; }
     public String getTitle () { return this.title; }
     public String getDescription ( ) { return this.description;}
     public Byte[] getImage () { return this.image; }
+
+    public void settId ( Long id ) { this.id = id ;}
+    public void setVendor ( Vendor vendor ) { this.vendor = vendor;}
+    public void setDatePub ( LocalDate date ) { this.datepub = date; }
+    public void setTitle ( String ttl) { this.title = ttl; }
+    public void setDescription ( String d) { this.description = d ;}
+    public void setImage ( Byte[] b ) { this.image = b; }
 }

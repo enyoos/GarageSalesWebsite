@@ -7,7 +7,9 @@ import axios from "axios";
 import DialogBox from "./DialogBox";
 
 // PUT THAT INTO THE UTILS FILE
-const POST_API_URL = "http://localhost:8080/api/vendors/" 
+// NEED TO SPECIFY THE ID AND /POSTS AT THE END
+const CREATE_POST_URL_API = "http://localhost:8080/api/vendor/" 
+
 
 export default function OfferForm( {navigate} )
 {
@@ -31,20 +33,22 @@ export default function OfferForm( {navigate} )
     {
         e.preventDefault();
 
-        const date = new Date();
+        const date = spitDateString( new Date() );
         const id   = sessionStorage.getItem( "userid" );
+        console.log ( "the id : " + id );
+        console.log ( "the date : " + date )
 
         // CONTINUE HERE..
         const OfferEntity = {
-            datepub : spitDateString( date ),
+            datepub : date,
             title   : title,
             description : desc,
             image : blob
         }
 
-        axios.post ( POST_API_URL + id + "/posts", OfferEntity ).then ( r => {
+        axios.post ( CREATE_POST_URL_API + id + "/posts", OfferEntity ).then ( r => {
             printR( r );
-            setStatusRequest( { content : r.data, isErr : false });
+            setStatusRequest( { content : "Posted the offer ✅", isErr : false });
             // need to reset the form
         }).catch ( e => {
             printR ( e );

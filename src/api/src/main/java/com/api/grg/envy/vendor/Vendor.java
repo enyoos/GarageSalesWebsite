@@ -19,18 +19,16 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "VENDORS")
+@Table(name = "vendors")
 public class Vendor {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "vendor_id",nullable = false)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "vendor_generator")
+    private long id;
 
     @Column( name = "vendor_name", nullable = false)
     private String name;
-    @Column( name = "vendor_email", nullable =  false)
-    private String email;
+   
     @Column( name = "vendor_password", nullable = false)
     private String password;
 
@@ -39,22 +37,23 @@ public class Vendor {
     @Column(name = "vendor_photo", length = 20971520, columnDefinition="BLOB")
     private Byte[] profil;    
 
-    @Nullable
-    @OneToMany(mappedBy="vendor", cascade = CascadeType.ALL)
-    private List<Post> posts;
-
-
     public Vendor() {}
 
     // with all the entries
     // TODO
-    public Vendor ( Long id , String name, String email, String password, Byte[] profil, ArrayList<Post> post )
+    // public Vendor ( Long id , String name, String password, Byte[] profil, ArrayList<Post> post )
+    // {
+    //     this.id = id;
+    //     this.name = name;
+    //     this.password = password;
+    //     this.profil = profil;
+    // }
+
+    public Vendor ( String name, String password, Byte[] profil )
     {
-        this.id = id;
         this.name = name;
         this.password = password;
         this.profil = profil;
-        this.posts = post;
     }
 
     // without the id
@@ -74,17 +73,18 @@ public class Vendor {
     public Long getId ( ) {return this.id;}
     public String getName () { return this.name ;}
     public String getPassword () { return this.password;}
-    public String getEmail ( ) { return this.email ;}
+    // public String getEmail ( ) { return this.email ;}
     public Byte[] getProfil( ) { return this.profil;}
-    public List<Post> getPosts() { return this.posts ;}
+    // public List<Post> getPosts() { return this.posts ;}
 
     public void setId ( Long id) {this.id = id ;}
     public void setName ( String n ) { this.name = n;}
     public void setPassword ( String p ) { this.password = p ;}
-    public void setEmail ( String e) { this.email = e;}
+    // public void setEmail ( String e) { this.email = e;}
     public void setProfil( Byte[] p ) { this.profil = p;}
-    public void setPosts( List<Post> p ) { this.posts = p ;}
+    // public void setPosts( List<Post> p ) { this.posts = p ;}
 
+    
     @Override
     public String toString ( )
     {
@@ -93,7 +93,7 @@ public class Vendor {
         map.put ( "id", this.id );
         map.put ( "name", this.name );
         map.put ( "password", this.password );
-        map.put ( "email", this.email );
+        // map.put ( "email", this.email );
 
         String out = map.toString();
         map = null;

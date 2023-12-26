@@ -10,19 +10,23 @@ const PAGE           = 15;
 
 export default function Offers( {navigate} )
 {
-    // empty array of object
-    const [err, setErr] = useState("");
-    const [offers, setOffers] = useState([]);
+    // // empty array of object
+    // const [err, setErr] = useState("");
+    // const [offers, setOffers] = useState([]);
 
-    // on load, make the request
-    useEffect( () => {
-        axios.get ( GIVE_ALL_POSTS +  "?page=" + PAGE ).then ( r => {
-            // printR( r );
-        }).then( e => {
-            printR( e );
-            setErr( e.message );
-        })
-    }, []);
+    // // on load, make the request
+    // useEffect( () => {
+    //     axios.get ( GIVE_ALL_POSTS +  "?page=" + PAGE ).then ( r => {
+
+    //         printR( r );
+    //         printR( r.data );
+            
+    //     }).catch( e => {
+    //         console.log ( e );
+    //         // printR( e );
+    //         // setErr( e.message );
+    //     })
+    // }, []);
 
 
     return ( 
@@ -30,7 +34,7 @@ export default function Offers( {navigate} )
             <h1>
                 Look at all those chickens 🐔!
             </h1>
-            <DialogBox content={err} isErr={true}/>
+            {/* <DialogBox content={err} isErr={true}/> */}
 
             {/* <ul>
                 { offers.map( ( obj ) => <Offer offerObj = {obj}/>)}
