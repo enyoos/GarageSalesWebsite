@@ -14,6 +14,7 @@ export default function User( {navigate} )
                 </h1>
                 <ButtonNavigate content={"Check some offers"} navigate={navigate}/>
                 <ButtonNavigate content={"Post an Offer"} navigate={navigate}/>
+                <ButtonNavigate content={"Check all of my Offers"} navigate={navigate}/>
             </>
         ) 
     }

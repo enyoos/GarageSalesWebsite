@@ -1,5 +1,6 @@
 package com.api.grg.envy.post;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 import org.hibernate.annotations.OnDelete;
@@ -37,9 +38,9 @@ public class Post {
     @JsonIgnore
     private Vendor vendor;
 
-    @DateTimeFormat(pattern = "uuuu-MM-dd HH:mm")
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     @Column( name = "post_date", columnDefinition = "DATE")
-    private LocalDate datepub;
+    private Date dateOfPublication;
 
     @Column( name = "post_title")
     private String title;
@@ -58,18 +59,18 @@ public class Post {
 
 
     // make the 2 constructors
-    public Post ( Long id, LocalDate datepub, String ttl, String d, Byte[] img )
+    public Post ( Long id, Date dateOfPublication, String ttl, String d, Byte[] img )
     {
         this.id = id;
-        this.datepub=datepub;
+        this.dateOfPublication=dateOfPublication;
         this.title = ttl;
         this.description = d;
         this.image = img;
     }
 
-    public Post ( LocalDate datepub, String ttl, String d, Byte[] img )
+    public Post ( Date dateOfPublication, String ttl, String d, Byte[] img )
     {
-        this.datepub=datepub;
+        this.dateOfPublication=dateOfPublication;
         this.title = ttl;
         this.description = d;
         this.image = img;
@@ -78,14 +79,14 @@ public class Post {
     // make the getter and setters
     public Long getId ( ) { return this.id ;}
     public Vendor getVendor () { return this.vendor;}
-    public LocalDate getDatePub ( ) { return this.datepub; }
+    public Date getDateOfPublication ( ) { return this.dateOfPublication; }
     public String getTitle () { return this.title; }
     public String getDescription ( ) { return this.description;}
     public Byte[] getImage () { return this.image; }
 
     public void settId ( Long id ) { this.id = id ;}
     public void setVendor ( Vendor vendor ) { this.vendor = vendor;}
-    public void setDatePub ( LocalDate date ) { this.datepub = date; }
+    public void setDateOfPublication( Date date ) { this.dateOfPublication = date; }
     public void setTitle ( String ttl) { this.title = ttl; }
     public void setDescription ( String d) { this.description = d ;}
     public void setImage ( Byte[] b ) { this.image = b; }

@@ -78,6 +78,7 @@ export default function OfferForm( {navigate} )
                 <br/>
                 {/* <input type="text"  name="password" required /> */}
                 <Input type={"file"} 
+                    required={false}
                     setValue={handleUpload} 
                     placeHolder="Load an image" 
                     title="Your image should display your Offer"/>

@@ -7,8 +7,14 @@
     border-radius: 4px;
 }
 
-
-.button:hover
+.button-delete
 {
-    background-color: rgb(61, 211, 61);
+    font-style: italic;
+    color: white;
+    background-color: rgb(152, 87, 87);
+    transition-duration: 2s;
+    border-radius: 4px;
 }
+
+.button-delete:hover{ background-color: rgb(165, 65, 65); }
+.button:hover { background-color: rgb(61, 211, 61); }

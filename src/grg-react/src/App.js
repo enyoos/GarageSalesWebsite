@@ -7,6 +7,7 @@ import OfferForm from './Components/OfferForm';
 import Create from './Components/Create';
 import Login from './Components/Login';
 import User from './Components/User';
+import MyPosts from './Components/MyPosts';
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
       {/* maybe add some dynamic stuff in there
       read this : https://stackoverflow.com/questions/57058879/how-to-create-dynamic-routes-with-react-router-dom */}
       <Route path="/User" element={<User navigate={navigate}/>}/>
+      <Route path="/User/MyPosts" element={<MyPosts navigate={navigate}/>}/>
       <Route path="/User/Offers" element={<Offers/>}/>
       <Route path="/User/Post" element={<OfferForm/>}/>
     </Routes>
